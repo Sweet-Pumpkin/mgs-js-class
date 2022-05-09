@@ -79,8 +79,27 @@ var tabMenu = document.querySelector(".tab_menu");
 var tabMenuLis = tabMenu.querySelectorAll("li");
 var tabContentDivs = document.querySelectorAll(".tab_content > div");
 
+// 리스너를 설치한다.
+tabMenu.addEventListener('click', toDo);
 
+function toDo(event) {
+	event.preventDefault();
+	const activeLi = event.target.parentNode;
+	
+	if (event.target.tagName !== 'A') return;
 
+	// on 모두 지우기
+	for (let i = 0; i < tabMenuLis.length; i++) {
+		tabMenuLis[i].classList.remove('on');
+		tabContentDivs[i].classList.remove('on');
+	}
+	
+	document.querySelector(
+		`.tab_content > .c_${activeLi.className.substr(2)}
+		`).classList.add('on');
+
+	activeLi.classList.add('on');
+}
 
 </script>
 </body>
