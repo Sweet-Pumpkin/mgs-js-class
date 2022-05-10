@@ -80,6 +80,37 @@ var tabMenu = document.querySelector(".tab_menu");
 var tabMenuLis = tabMenu.querySelectorAll("li");
 var tabContentDivs = document.querySelectorAll(".tab_content > div");
 
+for (let i = 0; i < tabMenuLis.length; i++) {
+	tabMenuLis[i].index = i;
+}
+
+tabMenu.addEventListener("click", setTab);
+
+function setTab(e) {
+	e.preventDefault();
+	// 모두 지우기
+	tabMenuLis.forEach(item => item.classList.remove('on'));
+	tabContentDivs.forEach(item => item.classList.remove('on'));
+	// 현재 탭에 on 주기
+	const index = e.target.parentNode.index;
+	tabMenuLis[index].classList.add('on');
+	tabContentDivs[index].classList.add('on');
+}
+
+	// for (let i = 0; i < tabMenuLis.length; i++) {
+	// 	tabMenuLis[i].onclick = () => {
+	// 		console.log(i);
+	// 		// 모두 지우기
+	// 		tabMenuLis.forEach(item => item.classList.remove('on'));
+	// 		tabContentDivs.forEach(item => item.classList.remove('on'));
+
+	// 		// 현재 탭에 on 주기
+	// 		tabMenuLis[i].classList.add('on');
+	// 		tabContentDivs[i].classList.add('on');
+
+	// 		return false;
+	// 	}
+	// }
 
 
 
