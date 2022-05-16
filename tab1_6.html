@@ -75,16 +75,51 @@ body {padding:50px;}
 // 6. tab_5_data.json 을 이용해서 색상 작업하기
 
 // 데이터 준비
+fetch('https://eulsoo.github.io/tab_5_data.json')
+.then(res => res.json())
+.then(obj => ToDo(obj));
+
+function ToDo(obj) {
+	console.log(obj);	
 
 // 노드 준비
-
+	const tabMenu = document.querySelector(".tab_menu");
+	const tabMenuLis = tabMenu.querySelectorAll("li");
+	const tabContentDivs = document.querySelectorAll(".tab_content > div");
 // 확인
 
 // 코드
-	
+	for (let i = 0; i < tabMenuLis.length; i ++) {
+		
+		// 초기 색상 설정
+		if (tabMenuLis[i].classList.contains("on")) {
+			tabMenuLis[i].firstChild.style.backgroundColor = obj.tabItems[i].itemColor;
+			tabContentDivs[i].style.backgroundColor = obj.tabItems[i].itemColor;
+		}
+
+		 // 클릭 이벤트
+		tabMenuLis[i].onclick = (e) => {
+			e.preventDefault();
+			console.log(i);
+
+			// on 삭제
+			for (let j = 0; j < tabMenuLis.length; j ++) {
+				tabMenuLis[j].classList.remove("on");
+				tabContentDivs[j].classList.remove("on");	
+				tabMenuLis[j].firstChild.style.backgroundColor = "";
+				tabContentDivs[j].style.backgroundColor = "";
+			}
+
+			// on 추가
+			tabMenuLis[i].classList.add("on");
+			tabContentDivs[i].classList.add("on");
+
+			// 색상 추가
+			tabMenuLis[i].firstChild.style.backgroundColor = obj.tabItems[i].itemColor;
+			tabContentDivs[i].style.backgroundColor = obj.tabItems[i].itemColor;
+		}
+	}
 }
-
-
 
 </script>
 </body>
