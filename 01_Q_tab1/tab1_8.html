@@ -77,8 +77,63 @@ body {padding:50px;}
 
 
 // 데이터 준비
+fetch('https://eulsoo.github.io/tab_5_data.json')
+	.then(res => res.json())
+	.then(obj => ToDo(obj));
 
-// 노드 준비
+function ToDo(obj) {
+	// 노드 준비
+	const ulEls = document.querySelector('.tab_menu');
+	const contEls = document.querySelector('.tab_content');
+
+	let liEls = '';
+	let divEls = '';
+
+	for (let i = 0; i < obj.tabItems.length; i ++ ) {
+		liEls += `<li><a herf="">${obj.tabItems[i].itemName}</a></li>`;
+		divEls += `<div>${obj.tabItems[i].itemContent}</div>`;
+	}
+
+	ulEls.innerHTML = liEls;
+	contEls.innerHTML = divEls;
+	ulEls.children[0].classList.add('on');
+	contEls.children[0].classList.add("on");
+
+	// 이벤트 처리
+	const tabMenuLis = ulEls.querySelectorAll("li");
+	const tabContentDivs = document.querySelectorAll(".tab_content > div");
+	// 확인
+
+	// 코드
+	for (let i = 0; i < tabMenuLis.length; i ++) {
+		// 초기 색상 설정
+		if (tabMenuLis[i].classList.contains("on")) {
+			tabMenuLis[i].firstChild.style.backgroundColor = obj.tabItems[i].itemColor;
+			tabContentDivs[i].style.backgroundColor = obj.tabItems[i].itemColor;
+		}
+		 // 클릭 이벤트
+		tabMenuLis[i].onclick = (e) => {
+			e.preventDefault();
+			console.log(i);
+
+			// on 삭제
+			for (let j = 0; j < tabMenuLis.length; j ++) {
+				tabMenuLis[j].classList.remove("on");
+				tabContentDivs[j].classList.remove("on");	
+				tabMenuLis[j].firstChild.style.backgroundColor = "";
+				tabContentDivs[j].style.backgroundColor = "";
+			}
+
+			// on 추가
+			tabMenuLis[i].classList.add("on");
+			tabContentDivs[i].classList.add("on");
+
+			// 색상 추가
+			tabMenuLis[i].firstChild.style.backgroundColor = obj.tabItems[i].itemColor;
+			tabContentDivs[i].style.backgroundColor = obj.tabItems[i].itemColor;
+		}
+	}
+}
 
 // 확인
 
