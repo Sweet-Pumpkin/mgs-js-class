@@ -233,7 +233,7 @@ header .utill .dash_open {
 aside .open_dash {
 	width:270px;
 	height: 80px;
-	background-color: ;
+	background-color: none;
 }
 .btn.vdi {
 	position: absolute;
